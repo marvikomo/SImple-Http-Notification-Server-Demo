@@ -1,0 +1,23 @@
+version: '3'
+services:
+  publishing_server:
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      context: ./publishing_server
+    ports:
+      - '8001:8001'
+    volumes:
+      - /app/node_modules
+      - ./publishing_server:/app
+  subscribing_server:
+    stdin_open: true
+    build:
+      context: ./subscribing_server
+    ports:
+      - '8000:8000'
+    volumes:
+      - /app/node_modules
+      - ./subscribing_server:/app
+    
